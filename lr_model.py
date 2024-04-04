@@ -5,7 +5,6 @@ import utils
 import warnings
 warnings.filterwarnings('ignore')
 
-# loading the data
 file_path = '/Users/arnavmahale/Documents/Northeastern University/Spring 24/CS 4120/finalProject/sarcasm-detection-models/'
 data, target = np.load(file_path+'sarcasm-v2.npy', allow_pickle=True)
 

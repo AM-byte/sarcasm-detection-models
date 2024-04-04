@@ -7,7 +7,6 @@ from sklearn.model_selection import train_test_split
 import utils
 from sklearn.metrics import f1_score, accuracy_score
 
-# loading the data
 file_path = '/Users/arnavmahale/Documents/Northeastern University/Spring 24/CS 4120/finalProject/sarcasm-detection-models/'
 data, target = np.load(file_path+'sarcasm-v1.npy', allow_pickle=True)
 
