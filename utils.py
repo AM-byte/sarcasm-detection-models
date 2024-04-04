@@ -36,12 +36,10 @@ def get_prfa(dev_y: list, preds: list, verbose=False) -> tuple:
     accuracy = accuracy_score(dev_y, preds)
 
     if verbose:
-        print("Precision: ", precision)
-        print("Recall: ", recall)
         print("F1 score: ", f1)
         print("Accuracy: ", accuracy)
 
-    return (precision, recall, f1, accuracy)
+    return (f1, accuracy)
 
 def featurize(vocab: list, data_to_be_featurized_X: list) -> list:
     """
