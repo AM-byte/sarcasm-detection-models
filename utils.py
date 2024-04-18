@@ -62,20 +62,35 @@ def featurize(vocab: list, data_to_be_featurized_X: list) -> list:
     
     return feature_map
 
-def data_feats(train_tups, dev_tups):
+def vectorize_sentences(sentences, word_vectors, vector_size=50):
+    """ Vectorize sentences by averaging word vectors. """
+    vectorized_data = np.zeros((len(sentences), vector_size))
+    
+    for i, sentence in enumerate(sentences):
+        word_count = 0
+        for word in sentence:
+            if word in word_vectors:
+                vectorized_data[i] += word_vectors[word]
+                word_count += 1
+        if word_count > 0:
+            vectorized_data[i] /= word_count
+    
+    return vectorized_data
+
+def data_feats(train_tups, dev_tups, word_vectors):
     x_train = []
     y_train = []
     x_dev = []
     y_dev = []
 
-    vectorizer = CountVectorizer(binary=True)
-    train_text = [' '.join(sentence) for sentence, label in zip(train_tups[0], train_tups[1])]
-    x_train = vectorizer.fit_transform(train_text)
+    # Process training data
+    train_text = train_tups[0]
+    x_train = vectorize_sentences(train_text, word_vectors)
     y_train = train_tups[1]
-    vocab = vectorizer.vocabulary_
 
-    x_dev_text = [' '.join(sentence) for sentence, label in zip(dev_tups[0], dev_tups[1])]
-    x_dev = vectorizer.transform(x_dev_text)
+    # Process development data
+    dev_text = dev_tups[0]
+    x_dev = vectorize_sentences(dev_text, word_vectors)
     y_dev = dev_tups[1]
     
-    return x_train, y_train, x_dev, y_dev, vocab
+    return x_train, y_train, x_dev, y_dev
